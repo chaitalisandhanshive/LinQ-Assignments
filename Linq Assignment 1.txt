@@ -1,0 +1,179 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Reflection;
+using System.Runtime.Interopservice;
+using System.ComponentModel.Design;
+using System.Threading.Tasks;
+
+namespace GenericCollectionDemo
+{
+public class Employee
+{
+public int EmpID {get; set;}
+public string FirstName {get; set;}
+public string LastName {get; set;}
+public string Title {get; set;}
+public DateOnly DOB {get; set;}
+public DateOnly DOJ {get; set;}
+public string City {get; set;}
+public static void Main(string[]args)
+{
+Employee emp1 = new Employee() {EmpID=1001, FirstName="Malcolm", LastName="Daruwalla", Title="Manager" ,DOB="16/11/1984", DOJ="8/6/2011", City="Mumbai"};
+Employee emp2 = new Employee() {EmpID=1002, FirstName="Asdin", LastName="Dhalla", Title="AsstManager" ,DOB="20/08/1984", DOJ="7/7/2012", City="Mumbai"};
+Employee emp3 = new Employee() {EmpID=1003, FirstName="Madhvi", LastName="Oza", Title="Consultant" ,DOB="14/11/1987", DOJ="12/4/2015" ,City="Pune"};
+Employee emp4 = new Employee() {EmpID=1004, FirstName="Saba", LastName="Shaikh", Title="SE" ,DOB="3/06/1990", DOJ="2/2/2016", City="Pune"};
+Employee emp5 = new Employee() {EmpID=1005, FirstName="Nazia", LastName="Shaikh", Title="SE" ,DOB="08/03/1991", DOJ="2/2/2016" ,City="Mumbai"};
+Employee emp6 = new Employee() {EmpID=1006, FirstName="Amit", LastName="Pathak", Title="Consultant",DOB="07/11/1989", DOJ="8/8/2014", City="Chennai"};
+Employee emp7 = new Employee() {EmpID=1007, FirstName="Vijay", LastName="Natrajan", Title="Consultant" ,DOB="2/12/1989", DOJ="1/6/2015", City="Mumbai"};
+Employee emp8 = new Employee() {EmpID=1008, FirstName="Rahul", LastName="Dubey", Title="Associate" ,DOB="11/11/1993", DOJ="6/11/2014", City="Chennai"};
+Employee emp9 = new Employee() {EmpID=1009, FirstName="Suresh", LastName="Mistry", Title="Associate" ,DOB="12/08/1992", DOJ="3/12/2014", City="Chennai"};
+Employee emp10= new Employee() {EmpID=1010, FirstName="Sumit", LastName="Shah", Title="Manager" ,DOB="12/04/1991", DOJ="21/1/2016", City="Pune"};
+
+List<Employee> listEmployees = new List<Employee>();
+{
+listEmployees.Add(emp1);
+listEmployees.Add(emp2);
+listEmployees.Add(emp3);
+listEmployees.Add(emp4);
+listEmployees.Add(emp5);
+listEmployees.Add(emp6);
+listEmployees.Add(emp7);
+listEmployees.Add(emp8);
+listEmployees.Add(emp9);
+listEmployees.Add(emp10);
+}
+}
+}
+}
+
+==================Linq Queries=====================
+Q.1)
+Console.WriteLine("Retrieving Details Of all Employee");
+for (int i = 0; i < listEmployees.Count; i++)
+            {
+                Employee employee = listEmployees[i];
+                Console.WriteLine($"ID = {employee.ID}, FirstName = {employee.FirstName}, LastName = {employee.LastName}, Title = {employee.Title}, DOB{employee.DOB}, DOJ{employee.DOJ},City{employee.City}");
+       }
+-------------------------------------------------------------
+Q.2)
+Console.WriteLine("Mumbai Location Employee:");
+var MumbaiEmp = from M in employee
+      where M.City !="Mumbai" select M;
+foreach(employee Emp in MumbaiEmp){
+Console.WriteLine(Emp);
+}
+            
+-------------------------------------------------------------
+Q.3)
+Console.WriteLine("Assitance Managers:");
+Var TitleEmp=from T in employee
+   where T.Title.Equals("AsstManager"  select T;
+foreach(employee Emp in TitleEmp)
+{
+Console.WriteLine(Emp);
+}  
+-------------------------------------------------------------
+Q.4)
+var LName=from L in employee
+             where L.LastName.StartsWith("S")
+              select L;
+foreach(var name in LName)
+{
+Console.WriteLine(name);
+}
+-------------------------------------------------------------
+Q.5)
+var Date1=from X in employee
+         where X.DateOnly.DOJ.Year>2015
+         select X
+foreach(var Dob in Date1){
+Console.WriteLine(Dob);
+}
+-------------------------------------------------------------
+Q.6)
+var Date2=from Y in employee
+          where Y.DOB.Year<1990
+          select Y
+foreach(var date in Date2){
+   Console.WriteLine(date);	
+}
+-------------------------------------------------------------
+Q.7)
+var Emp=from E in employee
+        where E.Title!=("Consultant")||E.Title!=("Associate")
+        select E
+foreach(var emp in employee){
+Console.WriteLine(emp);
+}
+------------------------------------------------------------
+Q.8)
+var TotalEmp=employee.Count();
+Console.WriteLine("Total Elemets:"+ TotalEmp);
+-----------------------------------------------------------
+Q.9)
+var Location=from  i in employee
+               where i.City.Equals("Chennai")
+               select i;
+               employee.Count();
+Console.WriteLine("Chennai Location Employee");
+foreach(var emp in Location)
+{
+Console.WriteLine(emp);
+}
+-------------------------------------------------------------
+Q.10)
+var highest=from H in employee
+	    select employee.Max(s=>s.ID);
+Console.WriteLine("Highest Emp ID is:"+highest);
+--------------------------------------------------------------
+Q.11)
+var JDate=from J in employee
+          where J.DOJ>(1/1/2015)
+          select J
+foreach(var doj in JDate){
+     Console.WriteLine(doj);
+}
+---------------------------------------------------------------
+Q.12)
+var Assi=from A in employee
+         where A.Title !="Associate"
+         select A;
+Console.WriteLine("People who has Associate post");
+foreach(var Emp in Assi){
+Console.WriteLine(Emp);
+}
+--------------------------------------------------------------
+Q.13)
+var City=from C in employee 
+          select C.City.Count();
+Console.WriteLine("Display city of emp");
+--------------------------------------------------------------
+Q.14)
+var Display= from E in employee
+		         
+                group E by E.City ;
+Console.WriteLine("City and Title of Employee:");
+foreach( var Info in Display)
+{
+Console.WriteLine(Info.Count());
+} 
+---------------------------------------------------------------
+Q.15)
+query15
+ var oldere=(from t in employee
+                select t.DOB).Max(); 
+ foreach(var youngest in older){
+ Console.WriteLine(youngest);
+ }
+
+-------------------------------------------------------------
+
+
+
+
+
+
+
+  
